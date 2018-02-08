@@ -1,0 +1,64 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+      <span>{{ toolbarTitle }}</span>
+      <span class="example-spacer"></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="example-header">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults || isRateLimitReached">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      {{ noDataString }}
+    </div>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" class="example-table"
+             matSort matSortActive="trx_time" matSortDisableClear matSortDirection="asc">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Number Column -->
+    <ng-container matColumnDef="trx_ammount">
+      <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.trx_ammount }}</mat-cell>
+    </ng-container>
+
+    <!-- State Column -->
+    <ng-container matColumnDef="trx_category">
+      <mat-header-cell *matHeaderCellDef>Categoty</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.trx_category }}</mat-cell>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="account_nbr">
+      <mat-header-cell *matHeaderCellDef>Account Number</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.account_nbr }}</mat-cell>
+    </ng-container>
+
+    <!-- Created Column -->
+    <ng-container matColumnDef="trx_time">
+      <mat-header-cell *matHeaderCellDef
+                       mat-sort-header
+                       disableClear="true">
+        Date
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.trx_time | date }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [length]="resultsLength" [pageSize]="20">
+
+  </mat-paginator>
+</div>
