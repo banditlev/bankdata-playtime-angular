@@ -6,7 +6,6 @@ import { MatProgressSpinnerModule, MatTableModule, MatPaginatorModule, MatSortMo
 
 import { AppComponent } from './app.component';
 import { ListComponentComponent } from './list-component/list-component.component';
-import { SpinnerComponent } from './spinner/spinner.component';
 import { SpotTableComponent } from './spot-table/spot-table.component';
 
 // Import HttpClientModule from @angular/common/http
@@ -16,7 +15,6 @@ import {HttpClientModule} from '@angular/common/http';
   declarations: [
     AppComponent,
     ListComponentComponent,
-    SpinnerComponent,
     SpotTableComponent,
   ],
   imports: [
